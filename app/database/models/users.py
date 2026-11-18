@@ -49,6 +49,11 @@ class UserModel(db.Model):
         nullable=False
     )
     group = db.relationship(UserGroupModel, back_populates="users")
+    reservations = db.relationship(
+        "planetarium.ReservationModel",
+        cascade="all, delete-orphan",
+        back_populates="user"
+    )
 
     def __str__(self) -> str:
         return self.email
