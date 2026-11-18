@@ -33,6 +33,11 @@ class AstronomyShowModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
     description = db.Column(db.Text, nullable=True)
+    show_themes = db.relationship(
+        ShowThemeModel,
+        secondary=AstronomyShowShowThemesModel,
+        back_populates="astronomy_shows"
+    )
 
     def __str__(self) -> str:
         return self.name
