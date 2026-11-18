@@ -48,3 +48,20 @@ class PlanetariumDomeModel(db.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class ShowSessionModel(db.Model):
+    __tablename__ = "show_sessions"
+
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    astronomy_show_id = db.Column(
+        db.Integer,
+        db.ForeignKey("astronomy_shows.id", ondelete="CASCADE"),
+        nullable=False
+    )
+    planetarium_dome_id = db.Column(
+        db.Integer,
+        db.ForeignKey("planetarium_dome.id", ondelete="CASCADE"),
+        nullable=False
+    )
+    show_time = db.Column(db.DateTime, nullable=False)
