@@ -109,3 +109,7 @@ class ReservationModel(db.Model):
         server_default=db.func.now(),
         nullable=False
     )
+    user = db.relationship(
+        "users.UserModel",
+        back_populates="reservations"
+    )
