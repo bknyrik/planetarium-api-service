@@ -9,3 +9,14 @@ class ShowThemeModel(db.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class AstronomyShowModel(db.Model):
+    __tablename__ = "astronomy_shows"
+
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    name = db.Column(db.String(255), unique=True, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+
+    def __str__(self) -> str:
+        return self.name
