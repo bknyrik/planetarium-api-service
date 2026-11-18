@@ -5,4 +5,4 @@ from flask_restx import Api
 
 db = SQLAlchemy()
 migrate = Migrate(db=db, directory="app/database/migrations")
-api = Api()
+api = Api(prefix="/api")
