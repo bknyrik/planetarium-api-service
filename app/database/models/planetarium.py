@@ -55,6 +55,11 @@ class PlanetariumDomeModel(db.Model):
     name = db.Column(db.String(255), unique=True, nullable=False)
     rows = db.Column(db.Integer, nullable=False)
     seats_in_row = db.Column(db.Integer, nullable=False)
+    show_sessions = db.relationship(
+        "ShowSessionModel",
+        cascade="all, delete-orphan",
+        back_populates="planetarium_dome"
+    )
 
     def __str__(self) -> str:
         return self.name
