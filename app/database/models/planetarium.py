@@ -113,3 +113,21 @@ class ReservationModel(db.Model):
         "users.UserModel",
         back_populates="reservations"
     )
+
+
+class TicketModel(db.Model):
+    __tablename__ = "tickets"
+
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    row = db.Column(db.Integer, nullable=False)
+    seat = db.Column(db.Integer, nullable=False)
+    reservation_id = db.Column(
+        db.Integer,
+        db.ForeignKey("reservations.id", ondelete="CASCADE"),
+        nullable=False
+    )
+    show_session_id = db.Column(
+        db.Integer,
+        db.ForeignKey("show_sessions.id", ondelete="CASCADE"),
+        nullable=False
+    )
