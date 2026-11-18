@@ -113,6 +113,11 @@ class ReservationModel(db.Model):
         "users.UserModel",
         back_populates="reservations"
     )
+    tickets = db.relationship(
+        "TicketModel",
+        cascade="all, delete-orphan",
+        back_populates="reservation"
+    )
 
 
 class TicketModel(db.Model):
