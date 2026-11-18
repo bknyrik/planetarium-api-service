@@ -152,4 +152,5 @@ class TicketModel(db.Model):
 
     __table_args__ = (
         db.UniqueConstraint("row", "seat", name="row_seat_unique"),
+        db.Index("row_seat_idx", "row", "seat"),
     )
