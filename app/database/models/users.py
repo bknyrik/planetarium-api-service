@@ -43,6 +43,7 @@ class UserModel(db.Model):
         db.ForeignKey("user_groups.id", ondelete="CASCADE"),
         nullable=False
     )
+    group = db.relationship(UserGroupModel, back_populates="users")
 
     def __str__(self) -> str:
         return self.email
