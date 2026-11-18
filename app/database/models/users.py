@@ -17,3 +17,32 @@ class UserGroupModel(db.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class UserModel(db.Model):
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    email = db.Column(db.String(255), unique=True, index=True, nullable=False)
+    first_name = db.Column(db.String(255), nullable=True)
+    last_name = db.Column(db.String(255), nullable=True)
+    password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(
+        db.DateTime(timezone=True),
+        server_default=db.func.now(),
+        nullable=False
+    )
+    updated_at = db.Column(
+        db.DateTime(timezone=True),
+        server_default=db.func.now(),
+        onupdate=db.func.now(),
+        nullable=False
+    )
+    group_id = db.Column(
+        db.Integer,
+        db.ForeignKey("user_groups.id", ondelete="CASCADE"),
+        nullable=False
+    )
+
+    def __str__(self) -> str:
+        return self.email
