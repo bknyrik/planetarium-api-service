@@ -1,5 +1,7 @@
 from app.extensions import db
 
+from app.database.models.users import UserModel
+
 
 AstronomyShowShowThemesModel = db.Table(
     "astronomy_show_show_themes",
@@ -115,7 +117,7 @@ class ReservationModel(db.Model):
         nullable=False
     )
     user = db.relationship(
-        "users.UserModel",
+        UserModel,
         back_populates="reservations"
     )
     tickets = db.relationship(
