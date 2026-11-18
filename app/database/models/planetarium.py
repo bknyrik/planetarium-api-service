@@ -1,6 +1,22 @@
 from app.extensions import db
 
 
+AstronomyShowShowThemesModel = db.Table(
+    "astronomy_show_show_themes",
+    db.Model.metadata,
+    db.Column(
+        "astronomy_show_id",
+        db.ForeignKey("astronomy_shows.id"),
+        primary_key=True
+    ),
+    db.Column(
+        "show_theme_id",
+        db.ForeignKey("show_themes.id"),
+        primary_key=True
+    )
+)
+
+
 class ShowThemeModel(db.Model):
     __tablename__ = "show_themes"
 
