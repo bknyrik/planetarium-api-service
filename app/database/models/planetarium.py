@@ -93,6 +93,11 @@ class ShowSessionModel(db.Model):
         PlanetariumDomeModel,
         back_populates="show_sessions"
     )
+    tickets = db.relationship(
+        "TicketModel",
+        cascade="all, delete-orphan",
+        back_populates="show_session"
+    )
 
 
 class ReservationModel(db.Model):
