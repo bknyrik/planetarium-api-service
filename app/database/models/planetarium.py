@@ -22,6 +22,11 @@ class ShowThemeModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, index=True)
     name = db.Column(db.String(255), unique=True, nullable=False)
+    astronomy_shows = db.relationship(
+        "AstronomyShowModel",
+        secondary=AstronomyShowShowThemesModel,
+        back_populates="show_themes"
+    )
 
     def __str__(self) -> str:
         return self.name
