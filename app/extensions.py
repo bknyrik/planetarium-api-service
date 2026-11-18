@@ -3,4 +3,4 @@ from flask_migrate import Migrate
 
 
 db = SQLAlchemy()
-migrate = Migrate(directory="app/database/migrations")
+migrate = Migrate(db=db, directory="app/database/migrations")
