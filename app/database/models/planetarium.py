@@ -149,3 +149,7 @@ class TicketModel(db.Model):
         ShowSessionModel,
         back_populates="tickets"
     )
+
+    __table_args__ = (
+        db.UniqueConstraint("row", "seat", name="row_seat_unique"),
+    )
