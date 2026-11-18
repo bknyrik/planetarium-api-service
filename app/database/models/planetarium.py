@@ -43,6 +43,11 @@ class AstronomyShowModel(db.Model):
         secondary=AstronomyShowShowThemesModel,
         back_populates="astronomy_shows"
     )
+    show_sessions = db.relationship(
+        "ShowSessionModel",
+        cascade="all, delete-orphan",
+        back_populates="astronomy_show"
+    )
 
     def __str__(self) -> str:
         return self.name
