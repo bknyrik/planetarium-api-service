@@ -10,6 +10,8 @@ def register_extensions(app: Flask) -> None:
     extensions.migrate.init_app(app)
     extensions.api.init_app(app)
 
+    register_namespaces(extensions.api)
+
 
 def register_namespaces(api: Api) -> None:
     api.add_namespace(planetarium.ns)
