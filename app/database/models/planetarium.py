@@ -36,3 +36,15 @@ class AstronomyShowModel(db.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class PlanetariumDomeModel(db.Model):
+    __tablename__ = "planetarium_domes"
+
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    name = db.Column(db.String(255), unique=True, nullable=False)
+    rows = db.Column(db.Integer, nullable=False)
+    seats_in_row = db.Column(db.Integer, nullable=False)
+
+    def __str__(self) -> str:
+        return self.name
