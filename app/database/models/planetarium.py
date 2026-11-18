@@ -75,3 +75,11 @@ class ShowSessionModel(db.Model):
         nullable=False
     )
     show_time = db.Column(db.DateTime, nullable=False)
+    astronomy_show = db.relationship(
+        AstronomyShowModel,
+        back_populates="show_sessions"
+    )
+    planetarium_dome = db.relationship(
+        PlanetariumDomeModel,
+        back_populates="show_sessions"
+    )
