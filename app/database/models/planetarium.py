@@ -81,7 +81,7 @@ class ShowSessionModel(db.Model):
     )
     planetarium_dome_id = db.Column(
         db.Integer,
-        db.ForeignKey("planetarium_dome.id", ondelete="CASCADE"),
+        db.ForeignKey("planetarium_domes.id", ondelete="CASCADE"),
         nullable=False
     )
     show_time = db.Column(db.DateTime, nullable=False)
