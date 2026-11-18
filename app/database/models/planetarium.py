@@ -131,3 +131,11 @@ class TicketModel(db.Model):
         db.ForeignKey("show_sessions.id", ondelete="CASCADE"),
         nullable=False
     )
+    reservation = db.relationship(
+        ReservationModel,
+        back_populates="tickets"
+    )
+    show_session = db.relationship(
+        ShowSessionModel,
+        back_populates="tickets"
+    )
