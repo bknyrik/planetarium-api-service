@@ -93,3 +93,19 @@ class ShowSessionModel(db.Model):
         PlanetariumDomeModel,
         back_populates="show_sessions"
     )
+
+
+class ReservationModel(db.Model):
+    __tablename__ = "reservations"
+
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False
+    )
+    created_at = db.Column(
+        db.DateTime(timezone=True),
+        server_default=db.func.now(),
+        nullable=False
+    )
