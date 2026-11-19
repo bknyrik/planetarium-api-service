@@ -12,4 +12,4 @@ def register_extensions(app: APIFlask) -> None:
 
 
 def register_blueprints(app: APIFlask) -> None:
-    app.register_blueprint(pt_bps.blueprint)
+    app.register_blueprint(pt_bps.blueprint,  url_prefix="/api/planetarium")

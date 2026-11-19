@@ -9,7 +9,7 @@ from app.database.models import planetarium as models
 from app.schemas import planetarium as schemas
 
 
-blueprint = APIBlueprint("planetarium", __name__, url_prefix="/planetarium")
+blueprint = APIBlueprint("planetarium", __name__)
 
 
 @blueprint.route("/show_themes/")
