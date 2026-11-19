@@ -7,7 +7,7 @@ load_dotenv()
 
 
 class BaseConfig:
-    APP_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__)))
+    APP_DIR = os.path.abspath(os.path.dirname(__file__))
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     SECRET_KEY = os.getenv("SECRET_KEY")
 
