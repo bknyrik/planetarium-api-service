@@ -7,4 +7,4 @@ class ShowThemeDetailSchema(Schema):
 
 
 class ShowThemeRequestSchema(Schema):
-    name = fields.String()
+    name = fields.String(required=True)
