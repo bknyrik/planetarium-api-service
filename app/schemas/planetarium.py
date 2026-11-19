@@ -21,6 +21,12 @@ class AstronomyShowDetailResponseSchema(Schema):
     )
 
 
+class AstronomyShowExtendDetailResponseSchema(
+    AstronomyShowDetailResponseSchema
+):
+    show_themes = fields.Nested(ShowThemeDetailResponseSchema, many=True)
+
+
 class AstronomyShowRequestSchema(Schema):
     name = fields.String()
     description = fields.String(allow_none=True)
