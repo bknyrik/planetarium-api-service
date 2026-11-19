@@ -13,7 +13,8 @@ class ShowThemeRequestSchema(Schema):
 class AstronomyShowDetailResponseSchema(Schema):
     name = fields.String()
     description = fields.String()
-    show_themes = fields.Nested(
-        ShowThemeDetailResponseSchema(only="name"),
+    show_themes = fields.Pluck(
+        ShowThemeDetailResponseSchema,
+        field_name="name",
         many=True
     )
