@@ -18,3 +18,9 @@ class AstronomyShowDetailResponseSchema(Schema):
         field_name="name",
         many=True
     )
+
+
+class AstronomyShowRequestSchema(Schema):
+    name = fields.String()
+    description = fields.String(allow_none=True)
+    show_themes = fields.List(fields.Integer, required=False)
