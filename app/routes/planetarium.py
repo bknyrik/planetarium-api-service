@@ -103,7 +103,7 @@ class AstronomyShowListAPIView(MethodView):
     @blueprint.input(schemas.AstronomyShowRequestSchema)
     def post(self, json_data: dict) -> models.AstronomyShowModel:
         try:
-            show_themes_ids = json_data.pop("show_themes")
+            show_themes_ids = json_data.pop("show_themes", ())
             instance = models.AstronomyShowModel(**json_data)
 
             instance.show_themes = (
