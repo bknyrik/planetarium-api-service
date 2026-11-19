@@ -1,7 +1,7 @@
 from apiflask import APIFlask
 
 from app import extensions
-from app.blueprints import planetarium as pt_bps
+from app.blueprints import planetarium
 
 
 def register_extensions(app: APIFlask) -> None:
@@ -12,4 +12,4 @@ def register_extensions(app: APIFlask) -> None:
 
 
 def register_blueprints(app: APIFlask) -> None:
-    app.register_blueprint(pt_bps.blueprint,  url_prefix="/api/planetarium")
+    app.register_blueprint(planetarium.blueprint,  url_prefix="/api/planetarium")
