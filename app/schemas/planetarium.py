@@ -11,6 +11,7 @@ class ShowThemeRequestSchema(Schema):
 
 
 class AstronomyShowDetailResponseSchema(Schema):
+    id = fields.Integer()
     name = fields.String()
     description = fields.String()
     show_themes = fields.Pluck(
