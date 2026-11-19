@@ -62,6 +62,22 @@ class ShowThemeDetailAPIView(MethodView):
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR
             )
 
+    @blueprint.output(schemas.ShowThemeDetailSchema)
+    @blueprint.input(schemas.ShowThemeRequestSchema)
+    def patch(self, pk: int, json_data: dict) -> models.ShowThemeModel:
+        try:
+            instance = db.get_or_404(models.ShowThemeModel, ident=pk)
+            instance.name = json_data.get("name", instance.name)
+
+            db.session.commit()
+            return instance
+        except SQLAlchemyError:
+            db.session.rollback()
+            raise HTTPError(
+                detail="An error occurred while updating the the show theme",
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR
+            )
+
     @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
     def delete(self, pk: int) -> None:
         try:
