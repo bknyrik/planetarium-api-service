@@ -8,6 +8,8 @@ def register_extensions(app: APIFlask) -> None:
     extensions.db.init_app(app)
     extensions.migrate.init_app(app)
 
+    register_blueprints(app)
+
 
 def register_blueprints(app: APIFlask) -> None:
     app.register_blueprint(pt_bps.blueprint)
