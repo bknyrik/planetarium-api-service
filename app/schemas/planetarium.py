@@ -1,6 +1,6 @@
 from apiflask import Schema, fields
 
 
-class ShowThemeSchema(Schema):
+class ShowThemeDetailSchema(Schema):
     id = fields.Integer()
     name = fields.String()
