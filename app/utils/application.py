@@ -1,7 +1,7 @@
 from apiflask import APIFlask
 
 from app import extensions
-from app.blueprints import planetarium
+from app.routes import planetarium
 
 
 def register_extensions(app: APIFlask) -> None:
