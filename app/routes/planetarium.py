@@ -125,3 +125,42 @@ class AstronomyShowListAPIView(MethodView):
                 detail="An error occurred while astronomy show creation",
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR
             )
+
+
+@blueprint.route("/astronomy_shows/<int:pk>")
+class AstronomyShowDetailAPIView(MethodView):
+
+    @blueprint.output(schemas.AstronomyShowExtendDetailResponseSchema)
+    def get(self, pk: int) -> models.AstronomyShowModel:
+        return db.get_or_404(models.AstronomyShowModel, ident=pk)
+
+    @blueprint.output(schemas.AstronomyShowDetailResponseSchema)
+    @blueprint.input(schemas.AstronomyShowRequestSchema)
+    def put(self, pk: int, json_data: dict) -> models.AstronomyShowModel:
+        try:
+            instance = db.get_or_404(models.AstronomyShowModel, ident=pk)
+
+            for name, value in json_data.items():
+                setattr(instance, name, value)
+
+            db.session.commit()
+            return instance
+        except SQLAlchemyError:
+            db.session.rollback()
+            raise HTTPError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                detail="An error occurred while updating astronomy show"
+            )
+
+    @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
+    def delete(self, pk: int) -> None:
+        try:
+            instance = db.get_or_404(models.AstronomyShowModel, ident=pk)
+            db.session.delete(instance)
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            raise HTTPError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                detail="An error occurred while astronomy show deletion"
+            )
