@@ -1,6 +1,6 @@
-from marshmallow import Schema, fields
+from apiflask import Schema, fields
 
 
 class ShowThemeSchema(Schema):
-    id = fields.Int(dump_only=True)
+    id = fields.Integer()
     name = fields.String()
