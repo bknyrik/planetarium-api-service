@@ -15,12 +15,12 @@ blueprint = APIBlueprint("planetarium", __name__)
 @blueprint.route("/show_themes/")
 class ShowThemeListAPIView(MethodView):
 
-    @blueprint.output(list[schemas.ShowThemeDetailSchema])
+    @blueprint.output(list[schemas.ShowThemeDetailResponseSchema])
     def get(self) -> list[models.ShowThemeModel]:
         return db.session.scalars(db.select(models.ShowThemeModel)).all()
 
     @blueprint.input(schemas.ShowThemeRequestSchema)
-    @blueprint.output(schemas.ShowThemeDetailSchema, status_code=201)
+    @blueprint.output(schemas.ShowThemeDetailResponseSchema, status_code=201)
     def post(self, json_data: dict) -> models.ShowThemeModel:
         try:
             instance = models.ShowThemeModel(**json_data)
@@ -41,11 +41,11 @@ class ShowThemeListAPIView(MethodView):
 @blueprint.route("/show_themes/<int:pk>/")
 class ShowThemeDetailAPIView(MethodView):
 
-    @blueprint.output(schemas.ShowThemeDetailSchema)
+    @blueprint.output(schemas.ShowThemeDetailResponseSchema)
     def get(self, pk: int) -> models.ShowThemeModel:
         return db.get_or_404(models.ShowThemeModel, ident=pk)
 
-    @blueprint.output(schemas.ShowThemeDetailSchema)
+    @blueprint.output(schemas.ShowThemeDetailResponseSchema)
     @blueprint.input(schemas.ShowThemeRequestSchema)
     def put(self, pk: int, json_data: dict) -> models.ShowThemeModel:
         try:
@@ -62,7 +62,7 @@ class ShowThemeDetailAPIView(MethodView):
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR
             )
 
-    @blueprint.output(schemas.ShowThemeDetailSchema)
+    @blueprint.output(schemas.ShowThemeDetailResponseSchema)
     @blueprint.input(schemas.ShowThemeRequestSchema)
     def patch(self, pk: int, json_data: dict) -> models.ShowThemeModel:
         try:
