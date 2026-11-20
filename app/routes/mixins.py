@@ -18,7 +18,7 @@ class ListModelMixin:
         except SQLAlchemyError:
             raise HTTPError(
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
-                detail=f"An error occurred while {self.model_name} creation"
+                detail=f"An error occurred while getting '{self.model_name}' list"
             )
 
 
