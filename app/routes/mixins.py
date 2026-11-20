@@ -1,17 +1,16 @@
 from http import HTTPStatus
 
 from apiflask import HTTPError
-from flask_sqlalchemy.model import Model
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.extensions import db
 
 
-class ListModelMixin:
-    model_type: type[Model]
+class ListModelMixin[T]:
+    model_type: type[T]
     model_name: str
 
-    def list(self, *args, **kwargs) -> list[Model]:
+    def list(self, *args, **kwargs) -> list[T]:
         try:
             return db.session.scalars(db.select(self.model_type)).all()
         except SQLAlchemyError:
@@ -21,11 +20,11 @@ class ListModelMixin:
             )
 
 
-class CreateModelMixin:
-    model_type: type[Model]
+class CreateModelMixin[T]:
+    model_type: type[T]
     model_name: str
 
-    def create(self, *args, **kwargs) -> Model:
+    def create(self, *args, **kwargs) -> T:
         try:
             json_data: dict = kwargs["json_data"]
 
