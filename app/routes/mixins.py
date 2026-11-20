@@ -52,3 +52,10 @@ class CreateModelMixin[T]:
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
                 detail=f"An error occurred while {self.model_name} creation"
             )
+
+
+class ListCreateModelMixin[T](
+    ListModelMixin[T],
+    CreateModelMixin[T]
+):
+    ...
