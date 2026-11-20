@@ -86,38 +86,20 @@ class ShowThemeDetailAPIView(MethodView):
 
 
 @blueprint.route("/astronomy_shows/")
-class AstronomyShowListAPIView(MethodView):
+class AstronomyShowListAPIView(
+    shortcuts.ListCreateAPIView[models.AstronomyShowModel]
+):
+    model_type = models.AstronomyShowModel
+    model_name = "astronomy show"
 
     @blueprint.output(list[schemas.AstronomyShowDetailResponseSchema])
-    def get(self) -> list[models.AstronomyShowModel]:
-        return db.session.scalars(db.select(models.AstronomyShowModel)).all()
+    def get(self, *args, **kwargs) -> list[models.AstronomyShowModel]:
+        return super().get(*args, **kwargs)
 
     @blueprint.output(schemas.AstronomyShowDetailResponseSchema)
     @blueprint.input(schemas.AstronomyShowRequestSchema)
-    def post(self, json_data: dict) -> models.AstronomyShowModel:
-        try:
-            show_themes_ids = json_data.pop("show_themes", ())
-            instance = models.AstronomyShowModel(**json_data)
-
-            instance.show_themes = (
-                db
-                .session
-                .scalars(
-                    db.select(models.ShowThemeModel)
-                    .where(models.ShowThemeModel.id.in_(show_themes_ids))
-                ).all()
-            )
-
-            db.session.add(instance)
-            db.session.commit()
-            db.session.refresh(instance)
-            return instance
-        except SQLAlchemyError:
-            db.session.rollback()
-            raise HTTPError(
-                detail="An error occurred while astronomy show creation",
-                status_code=HTTPStatus.INTERNAL_SERVER_ERROR
-            )
+    def post(self, *args, **kwargs) -> models.AstronomyShowModel:
+        return super().post(*args, **kwargs)
 
 
 @blueprint.route("/astronomy_shows/<int:pk>")
