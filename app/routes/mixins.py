@@ -1,4 +1,3 @@
-from copy import deepcopy
 from http import HTTPStatus
 
 from apiflask import HTTPError
@@ -28,11 +27,11 @@ class CreateModelMixin:
 
     def create(self, *args, **kwargs) -> Model:
         try:
-            json_data = kwargs["json_data"]
+            json_data: dict = kwargs["json_data"]
 
             multiple_data = {}
 
-            for key, value in deepcopy(json_data):
+            for key, value in json_data.copy().items():
                 multiple_data[key] = json_data.pop(key)
 
             instance = self.model_type(**json_data)
@@ -44,7 +43,7 @@ class CreateModelMixin:
             db.session.commit()
             db.session.refresh(
                 instance=instance,
-                attrbute_names=tuple(multiple_data.keys())
+                attribute_names=tuple(multiple_data.keys()),
             )
 
             return instance
