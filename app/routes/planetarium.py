@@ -14,7 +14,9 @@ blueprint = APIBlueprint("planetarium", __name__)
 
 
 @blueprint.route("/show_themes/")
-class ShowThemeListAPIView(shortcuts.ListCreateAPIView):
+class ShowThemeListAPIView(
+    shortcuts.ListCreateAPIView[models.ShowThemeModel]
+):
     model_name = "Show theme"
     model_type = models.ShowThemeModel
 
