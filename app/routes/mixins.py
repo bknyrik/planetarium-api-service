@@ -27,23 +27,11 @@ class CreateModelMixin[T]:
     def create(self, *args, **kwargs) -> T:
         try:
             json_data: dict = kwargs["json_data"]
-
-            multiple_data = {}
-
-            for key, value in json_data.copy().items():
-                multiple_data[key] = json_data.pop(key)
-
             instance = self.model_type(**json_data)
-
-            for key, value in multiple_data.items():
-                setattr(instance, key, value)
 
             db.session.add(instance)
             db.session.commit()
-            db.session.refresh(
-                instance=instance,
-                attribute_names=tuple(multiple_data.keys()),
-            )
+            db.session.refresh(instance)
 
             return instance
         except SQLAlchemyError:
