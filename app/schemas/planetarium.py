@@ -54,3 +54,10 @@ class AstronomyShowRequestSchema(Schema):
                 )
 
         return input_data
+
+
+class PlanetariumDomeDetailResponseSchema(Schema):
+    id = fields.Integer()
+    name = fields.String()
+    rows = fields.Integer()
+    seats_in_row = fields.Integer()
