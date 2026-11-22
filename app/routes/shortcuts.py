@@ -25,5 +25,8 @@ class RetrieveUpdateDestroyAPIView[T](
     def put(self, *args, **kwargs) -> T:
         return self.update(*args, **kwargs)
 
+    def patch(self, *args, **kwargs) -> T:
+        return self.partial_update(*args, **kwargs)
+
     def delete(self, *args, **kwargs) -> None:
         self.destroy(*args, **kwargs)
