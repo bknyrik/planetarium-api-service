@@ -42,6 +42,25 @@ class CreateModelMixin[T]:
             )
 
 
+class DetailMixin[T]:
+    model_type: type[T]
+    model_name: str
+
+    def get_object(self, pk: int) -> T:
+        instance = db.session.scalars(
+            db.select(self.model_type)
+            .where(self.model_type.id == pk)
+        ).first()
+
+        if not instance:
+            raise HTTPError(
+                status_code=HTTPStatus.NOT_FOUND,
+                detail=f"{self.model_name.title()} with id {pk} not found"
+            )
+
+        return instance
+
+
 class RetrieveModelMixin[T]:
     model_type: type[T]
     model_name: str
