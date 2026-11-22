@@ -1,10 +1,7 @@
 from http import HTTPStatus
 
-from flask.views import MethodView
-from apiflask import APIBlueprint, HTTPError, EmptySchema
-from sqlalchemy.exc import SQLAlchemyError
+from apiflask import APIBlueprint, EmptySchema
 
-from app.extensions import db
 from app.database.models import planetarium as models
 from app.schemas import planetarium as schemas
 from app.routes import shortcuts
@@ -34,57 +31,29 @@ class ShowThemeListAPIView(
 
 
 @blueprint.route("/show_themes/<int:pk>/")
-class ShowThemeDetailAPIView(MethodView):
+class ShowThemeDetailAPIView(
+    shortcuts.RetrieveUpdateDestroyAPIView[models.ShowThemeModel]
+):
+    model_type = models.ShowThemeModel
+    model_name = "Show theme"
 
     @blueprint.output(schemas.ShowThemeDetailResponseSchema)
-    def get(self, pk: int) -> models.ShowThemeModel:
-        return db.get_or_404(models.ShowThemeModel, ident=pk)
-
-    @blueprint.output(schemas.ShowThemeDetailResponseSchema)
-    @blueprint.input(schemas.ShowThemeRequestSchema)
-    def put(self, pk: int, json_data: dict) -> models.ShowThemeModel:
-        try:
-            instance = db.get_or_404(models.ShowThemeModel, ident=pk)
-            instance.name = json_data["name"]
-
-            db.session.commit()
-
-            return instance
-        except SQLAlchemyError:
-            db.session.rollback()
-            raise HTTPError(
-                detail="An error occurred while updating the show theme",
-                status_code=HTTPStatus.INTERNAL_SERVER_ERROR
-            )
+    def get(self, *args, **kwargs) -> models.ShowThemeModel:
+        return super().get(*args, **kwargs)
 
     @blueprint.output(schemas.ShowThemeDetailResponseSchema)
     @blueprint.input(schemas.ShowThemeRequestSchema)
-    def patch(self, pk: int, json_data: dict) -> models.ShowThemeModel:
-        try:
-            instance = db.get_or_404(models.ShowThemeModel, ident=pk)
-            instance.name = json_data.get("name", instance.name)
+    def put(self, *args, **kwargs) -> models.ShowThemeModel:
+        return super().put(*args, **kwargs)
 
-            db.session.commit()
-            return instance
-        except SQLAlchemyError:
-            db.session.rollback()
-            raise HTTPError(
-                detail="An error occurred while updating the the show theme",
-                status_code=HTTPStatus.INTERNAL_SERVER_ERROR
-            )
+    @blueprint.output(schemas.ShowThemeDetailResponseSchema)
+    @blueprint.input(schemas.ShowThemeRequestSchema)
+    def patch(self, *args, **kwargs) -> models.ShowThemeModel:
+        return super().patch(*args, **kwargs)
 
     @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
-    def delete(self, pk: int) -> None:
-        try:
-            instance = db.get_or_404(models.ShowThemeModel, ident=pk)
-            db.session.delete(instance)
-            db.session.commit()
-        except SQLAlchemyError:
-            db.session.rollback()
-            raise HTTPError(
-                detail="An error occurred while show theme deletion",
-                status_code=HTTPStatus.INTERNAL_SERVER_ERROR
-            )
+    def delete(self, *args, **kwargs) -> None:
+        return super().delete(*args, **kwargs)
 
 
 @blueprint.route("/astronomy_shows/")
@@ -105,39 +74,21 @@ class AstronomyShowListAPIView(
 
 
 @blueprint.route("/astronomy_shows/<int:pk>")
-class AstronomyShowDetailAPIView(MethodView):
+class AstronomyShowDetailAPIView(
+    shortcuts.RetrieveUpdateDestroyAPIView[models.AstronomyShowModel]
+):
+    model_type = models.AstronomyShowModel
+    model_name = "Astronomy show"
 
     @blueprint.output(schemas.AstronomyShowExtendDetailResponseSchema)
-    def get(self, pk: int) -> models.AstronomyShowModel:
-        return db.get_or_404(models.AstronomyShowModel, ident=pk)
+    def get(self, *args, **kwargs) -> models.AstronomyShowModel:
+        return super().get(*args, **kwargs)
 
     @blueprint.output(schemas.AstronomyShowDetailResponseSchema)
     @blueprint.input(schemas.AstronomyShowRequestSchema)
-    def put(self, pk: int, json_data: dict) -> models.AstronomyShowModel:
-        try:
-            instance = db.get_or_404(models.AstronomyShowModel, ident=pk)
-
-            for name, value in json_data.items():
-                setattr(instance, name, value)
-
-            db.session.commit()
-            return instance
-        except SQLAlchemyError:
-            db.session.rollback()
-            raise HTTPError(
-                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
-                detail="An error occurred while updating astronomy show"
-            )
+    def put(self, *args, **kwargs) -> models.AstronomyShowModel:
+        return super().put(*args, **kwargs)
 
     @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
-    def delete(self, pk: int) -> None:
-        try:
-            instance = db.get_or_404(models.AstronomyShowModel, ident=pk)
-            db.session.delete(instance)
-            db.session.commit()
-        except SQLAlchemyError:
-            db.session.rollback()
-            raise HTTPError(
-                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
-                detail="An error occurred while astronomy show deletion"
-            )
+    def delete(self, *args, **kwargs) -> None:
+        return super().patch(*args, **kwargs)
