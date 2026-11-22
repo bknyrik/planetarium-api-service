@@ -92,3 +92,23 @@ class AstronomyShowDetailAPIView(
     @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
     def delete(self, *args, **kwargs) -> None:
         return super().patch(*args, **kwargs)
+
+
+@blueprint.route("/planetarium_domes/")
+class PlanetariumDomeListAPIView(
+    shortcuts.ListCreateAPIView[models.PlanetariumDomeModel]
+):
+    model_type = models.PlanetariumDomeModel
+    model_name = "Planetarium Dome"
+
+    @blueprint.output(list[schemas.PlanetariumDomeDetailResponseSchema])
+    def get(self, *args, **kwargs) -> list[models.PlanetariumDomeModel]:
+        return super().get(*args, **kwargs)
+
+    @blueprint.output(
+        schema=schemas.PlanetariumDomeDetailResponseSchema,
+        status_code=HTTPStatus.CREATED
+    )
+    @blueprint.input(schemas.PlanetariumDomeRequestSchema)
+    def post(self, *args, **kwargs) -> models.PlanetariumDomeModel:
+        return super().post(*args, **kwargs)
