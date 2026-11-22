@@ -89,6 +89,23 @@ class RetrieveModelMixin[T]:
             )
 
 
+class DestroyModelMixin[T]:
+    model_type: type[T]
+    model_name: str
+
+    def destroy(self, *args, **kwargs) -> None:
+        try:
+            instance = self.get_object(kwargs["pk"])
+            db.session.delete(instance)
+            db.session.commit()
+        except SQLAlchemyError:
+            db.session.rollback()
+            raise HTTPError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                detail=f"An error occurred while {self.model_name} deletion"
+            )
+
+
 class ListCreateModelMixin[T](
     ListModelMixin[T],
     CreateModelMixin[T]
