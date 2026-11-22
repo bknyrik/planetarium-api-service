@@ -119,3 +119,12 @@ class ListCreateModelMixin[T](
     CreateModelMixin[T]
 ):
     ...
+
+
+class RetrieveUpdateDestroyModelMixin[T](
+    DetailMixin[T],
+    RetrieveModelMixin[T],
+    UpdateModelMixin[T],
+    DestroyModelMixin[T]
+):
+    ...
