@@ -96,6 +96,26 @@ class UpdateModelMixin[T]:
                 detail=f"An error occurred while updating {self.model_name}"
             )
 
+    def partial_update(self, *args, **kwargs) -> T:
+        try:
+            instance = self.get_object(kwargs["pk"])
+
+            for key, value in kwargs["json_data"]:
+                if value is not None:
+                    setattr(instance, key, value)
+
+            db.session.commit()
+            return instance
+        except SQLAlchemyError:
+            db.session.rollback()
+            raise HTTPError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                detail=(
+                    f"An error occurred while "
+                    f"partial updating {self.model_name}"
+                )
+            )
+
 
 class DestroyModelMixin[T]:
     model_type: type[T]
