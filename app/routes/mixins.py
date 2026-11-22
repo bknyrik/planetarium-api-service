@@ -76,6 +76,27 @@ class RetrieveModelMixin[T]:
             )
 
 
+class UpdateModelMixin[T]:
+    model_type: type[T]
+    model_name: str
+
+    def update(self, *args, **kwargs) -> T:
+        try:
+            instance = self.get_object(kwargs["pk"])
+
+            for key, value in kwargs["json_data"]:
+                setattr(instance, key, value)
+
+            db.session.commit()
+            return instance
+        except SQLAlchemyError:
+            db.session.rollback()
+            raise HTTPError(
+                status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
+                detail=f"An error occurred while updating {self.model_name}"
+            )
+
+
 class DestroyModelMixin[T]:
     model_type: type[T]
     model_name: str
