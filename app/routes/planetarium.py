@@ -67,7 +67,10 @@ class AstronomyShowListAPIView(
     def get(self, *args, **kwargs) -> list[models.AstronomyShowModel]:
         return super().get(*args, **kwargs)
 
-    @blueprint.output(schemas.AstronomyShowDetailResponseSchema)
+    @blueprint.output(
+        schemas.AstronomyShowDetailResponseSchema,
+        status_code=HTTPStatus.CREATED
+    )
     @blueprint.input(schemas.AstronomyShowRequestSchema)
     def post(self, *args, **kwargs) -> models.AstronomyShowModel:
         return super().post(*args, **kwargs)
