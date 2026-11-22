@@ -67,20 +67,7 @@ class RetrieveModelMixin[T]:
 
     def retrieve(self, *args, **kwargs) -> T:
         try:
-            instance = db.session.scalars(
-                db.select(self.model_type)
-                .where(self.model_type.id == kwargs["pk"])
-            ).first()
-
-            if not instance:
-                raise HTTPError(
-                    status_code=HTTPStatus.NOT_FOUND,
-                    detail=(
-                        f"'{self.model_name.title()}' with id {kwargs["pk"]}"
-                        "not found."
-                    )
-                )
-
+            instance = self.get_object(kwargs["pk"])
             return instance
         except SQLAlchemyError:
             raise HTTPError(
