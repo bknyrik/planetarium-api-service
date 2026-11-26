@@ -1,4 +1,4 @@
-from apiflask import Schema, fields
+from apiflask import Schema, fields, validators
 from marshmallow import post_load, ValidationError
 
 from app.extensions import db
@@ -12,6 +12,10 @@ class ShowThemeDetailResponseSchema(Schema):
 
 class ShowThemeRequestSchema(Schema):
     name = fields.String(required=True)
+
+
+class ShowThemePartialUpdateRequestSchema(Schema):
+    name = fields.String(dump_default=None)
 
 
 class AstronomyShowDetailResponseSchema(Schema):
