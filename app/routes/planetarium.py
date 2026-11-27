@@ -120,6 +120,9 @@ class AstronomyShowDetailAPIView(
     model_name = "Astronomy show"
 
     @blueprint.output(schemas.AstronomyShowExtendDetailResponseSchema)
+    @blueprint.doc(
+        summary="Get astronomy show detail"
+    )
     def get(self, *args, **kwargs) -> models.AstronomyShowModel:
         return super().get(*args, **kwargs)
 
