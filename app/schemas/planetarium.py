@@ -78,6 +78,6 @@ class PlanetariumDomeDetailResponseSchema(Schema):
 
 
 class PlanetariumDomeRequestSchema(Schema):
-    name = fields.String()
-    rows = fields.Integer()
-    seats_in_row = fields.Integer()
+    name = fields.String(required=True)
+    rows = fields.Integer(required=True)
+    seats_in_row = fields.Integer(required=True)
