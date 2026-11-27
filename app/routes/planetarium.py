@@ -94,6 +94,9 @@ class AstronomyShowListAPIView(
         return result.unique().all()
 
     @blueprint.output(list[schemas.AstronomyShowDetailResponseSchema])
+    @blueprint.doc(
+        summary="Get astronomy show list"
+    )
     def get(self, *args, **kwargs) -> list[models.AstronomyShowModel]:
         return super().get(*args, **kwargs)
 
