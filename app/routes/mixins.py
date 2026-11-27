@@ -15,7 +15,7 @@ class ListModelMixin[T]:
 
     def list(self, *args, **kwargs) -> list[T]:
         try:
-            return db.session.scalars(db.select(self.model_type)).all()
+            return self.get_object_list(*args, **kwargs)
         except SQLAlchemyError:
             raise HTTPError(
                 status_code=HTTPStatus.INTERNAL_SERVER_ERROR,
