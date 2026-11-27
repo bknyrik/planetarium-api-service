@@ -161,5 +161,8 @@ class PlanetariumDomeListAPIView(
         status_code=HTTPStatus.CREATED
     )
     @blueprint.input(schemas.PlanetariumDomeRequestSchema)
+    @blueprint.doc(
+        summary="Create planetarium dome"
+    )
     def post(self, *args, **kwargs) -> models.PlanetariumDomeModel:
         return super().post(*args, **kwargs)
