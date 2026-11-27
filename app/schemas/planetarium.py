@@ -71,6 +71,12 @@ class AstronomyShowRequestSchema(Schema):
         return input_data
 
 
+class AstronomyShowPartialUpdateRequestSchema(
+    AstronomyShowRequestSchema
+):
+    name = fields.String(required=False)
+
+
 class PlanetariumDomeDetailResponseSchema(Schema):
     id = fields.Integer()
     name = fields.String()
