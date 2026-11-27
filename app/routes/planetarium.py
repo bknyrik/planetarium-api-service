@@ -135,6 +135,9 @@ class AstronomyShowDetailAPIView(
         return super().put(*args, **kwargs)
 
     @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
+    @blueprint.doc(
+        summary="Delete astronomy show"
+    )
     def delete(self, *args, **kwargs) -> None:
         return super().patch(*args, **kwargs)
 
