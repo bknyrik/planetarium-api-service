@@ -19,6 +19,9 @@ class ShowThemeListAPIView(
     model_type = models.ShowThemeModel
 
     @blueprint.output(list[schemas.ShowThemeDetailResponseSchema])
+    @blueprint.doc(
+        summary="Get show theme list"
+    )
     def get(self, *args, **kwargs) -> list[models.ShowThemeModel]:
         return super().get(*args, **kwargs)
 
