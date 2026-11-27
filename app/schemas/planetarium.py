@@ -15,7 +15,7 @@ class ShowThemeRequestSchema(Schema):
 
 
 class ShowThemePartialUpdateRequestSchema(Schema):
-    name = fields.String(dump_default=None)
+    name = fields.String(required=False)
 
 
 class AstronomyShowDetailResponseSchema(Schema):
