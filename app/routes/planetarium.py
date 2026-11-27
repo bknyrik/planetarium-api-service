@@ -68,6 +68,9 @@ class ShowThemeDetailAPIView(
         return super().patch(*args, **kwargs)
 
     @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
+    @blueprint.doc(
+        summary="Delete show theme"
+    )
     def delete(self, *args, **kwargs) -> None:
         return super().delete(*args, **kwargs)
 
