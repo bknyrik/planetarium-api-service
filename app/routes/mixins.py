@@ -100,7 +100,7 @@ class UpdateModelMixin[T]:
         try:
             instance = self.get_object(kwargs["pk"])
 
-            for key, value in kwargs["json_data"]:
+            for key, value in kwargs["json_data"].items():
                 if value is not None:
                     setattr(instance, key, value)
 
