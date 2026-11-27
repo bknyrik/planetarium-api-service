@@ -61,6 +61,9 @@ class ShowThemeDetailAPIView(
 
     @blueprint.output(schemas.ShowThemeDetailResponseSchema)
     @blueprint.input(schemas.ShowThemePartialUpdateRequestSchema)
+    @blueprint.doc(
+        summary="Partially update show theme"
+    )
     def patch(self, *args, **kwargs) -> models.ShowThemeModel:
         return super().patch(*args, **kwargs)
 
