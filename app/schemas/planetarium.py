@@ -52,20 +52,21 @@ class AstronomyShowRequestSchema(Schema):
 
     @post_load
     def load_show_themes_by_ids(self, input_data: dict, **kwargs) -> dict:
-        input_ids = input_data["show_themes"]
-        input_data["show_themes"] = db.session.scalars(
-            db.select(models.ShowThemeModel)
-            .where(models.ShowThemeModel.id.in_(input_ids))
-        ).all()
+        if input_data.get("show_themes"):
+            input_ids = input_data["show_themes"]
+            input_data["show_themes"] = db.session.scalars(
+                db.select(models.ShowThemeModel)
+                .where(models.ShowThemeModel.id.in_(input_ids))
+            ).all()
 
-        show_theme_ids = tuple(
-            map(lambda st: st.id, input_data["show_themes"])
-        )
-        for id_ in input_ids:
-            if id_ not in show_theme_ids:
-                raise ValidationError(
-                    message=f"Show theme by '{id_}' does not exist."
-                )
+            show_theme_ids = tuple(
+                map(lambda st: st.id, input_data["show_themes"])
+            )
+            for id_ in input_ids:
+                if id_ not in show_theme_ids:
+                    raise ValidationError(
+                        message=f"Show theme by '{id_}' does not exist."
+                    )
 
         return input_data
 
