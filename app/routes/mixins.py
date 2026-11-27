@@ -10,6 +10,9 @@ class ListModelMixin[T]:
     model_type: type[T]
     model_name: str
 
+    def get_object_list(self, *args, **kwargs) -> list[T]:
+        return db.session.scalars(db.select(self.model_type)).all()
+
     def list(self, *args, **kwargs) -> list[T]:
         try:
             return db.session.scalars(db.select(self.model_type)).all()
