@@ -30,6 +30,9 @@ class ShowThemeListAPIView(
         schema=schemas.ShowThemeDetailResponseSchema,
         status_code=HTTPStatus.CREATED
     )
+    @blueprint.doc(
+        summary="Create show theme"
+    )
     def post(self, *args, **kwargs) -> models.ShowThemeModel:
         return super().post(*args, **kwargs)
 
