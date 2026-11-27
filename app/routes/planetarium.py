@@ -45,6 +45,9 @@ class ShowThemeDetailAPIView(
     model_name = "Show theme"
 
     @blueprint.output(schemas.ShowThemeDetailResponseSchema)
+    @blueprint.doc(
+        summary="Get show theme detail"
+    )
     def get(self, *args, **kwargs) -> models.ShowThemeModel:
         return super().get(*args, **kwargs)
 
