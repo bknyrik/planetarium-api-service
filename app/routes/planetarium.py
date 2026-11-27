@@ -53,6 +53,9 @@ class ShowThemeDetailAPIView(
 
     @blueprint.output(schemas.ShowThemeDetailResponseSchema)
     @blueprint.input(schemas.ShowThemeRequestSchema)
+    @blueprint.doc(
+        summary="Completely update show theme"
+    )
     def put(self, *args, **kwargs) -> models.ShowThemeModel:
         return super().put(*args, **kwargs)
 
