@@ -88,3 +88,9 @@ class PlanetariumDomeRequestSchema(Schema):
     name = fields.String(required=True)
     rows = fields.Integer(required=True)
     seats_in_row = fields.Integer(required=True)
+
+
+class PlanetariumDomePartialUpdateRequestSchema(PlanetariumDomeRequestSchema):
+    name = fields.String(required=False)
+    rows = fields.String(required=False)
+    seats_in_row = fields.String(required=False)
