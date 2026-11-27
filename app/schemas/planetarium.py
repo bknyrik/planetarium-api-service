@@ -15,7 +15,12 @@ class ShowThemeRequestSchema(Schema):
 
 
 class ShowThemePartialUpdateRequestSchema(Schema):
-    name = fields.String(required=False)
+    name = fields.String(
+        required=False,
+        validate=(
+            validators.Length(1, 255),
+        )
+    )
 
 
 class AstronomyShowDetailResponseSchema(Schema):
