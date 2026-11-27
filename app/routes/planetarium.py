@@ -150,6 +150,9 @@ class PlanetariumDomeListAPIView(
     model_name = "Planetarium Dome"
 
     @blueprint.output(list[schemas.PlanetariumDomeDetailResponseSchema])
+    @blueprint.doc(
+        summary="Get planetarium dome list"
+    )
     def get(self, *args, **kwargs) -> list[models.PlanetariumDomeModel]:
         return super().get(*args, **kwargs)
 
