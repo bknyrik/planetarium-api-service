@@ -128,6 +128,9 @@ class AstronomyShowDetailAPIView(
 
     @blueprint.output(schemas.AstronomyShowDetailResponseSchema)
     @blueprint.input(schemas.AstronomyShowRequestSchema)
+    @blueprint.doc(
+        summary="Completely update astronomy show"
+    )
     def put(self, *args, **kwargs) -> models.AstronomyShowModel:
         return super().put(*args, **kwargs)
 
