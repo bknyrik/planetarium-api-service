@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 from apiflask import APIBlueprint, EmptySchema
 
+from app.extensions import db
 from app.database.models import planetarium as models
 from app.schemas import planetarium as schemas
 from app.routes import shortcuts
@@ -62,6 +63,17 @@ class AstronomyShowListAPIView(
 ):
     model_type = models.AstronomyShowModel
     model_name = "astronomy show"
+
+    def get_object_list(
+        self,
+        *args,
+        **kwargs
+    ) -> list[models.AstronomyShowModel]:
+        result = db.session.scalars(
+            db.select(self.model_type)
+            .options(db.joinedload(self.model_type.show_themes))
+        )
+        return result.unique().all()
 
     @blueprint.output(list[schemas.AstronomyShowDetailResponseSchema])
     def get(self, *args, **kwargs) -> list[models.AstronomyShowModel]:
