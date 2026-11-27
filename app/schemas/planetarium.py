@@ -11,7 +11,12 @@ class ShowThemeDetailResponseSchema(Schema):
 
 
 class ShowThemeRequestSchema(Schema):
-    name = fields.String(required=True)
+    name = fields.String(
+        required=True,
+        validate=(
+            validators.Length(1, 255),
+        )
+    )
 
 
 class ShowThemePartialUpdateRequestSchema(Schema):
