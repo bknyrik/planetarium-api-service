@@ -134,6 +134,14 @@ class AstronomyShowDetailAPIView(
     def put(self, *args, **kwargs) -> models.AstronomyShowModel:
         return super().put(*args, **kwargs)
 
+    @blueprint.output(schemas.AstronomyShowDetailResponseSchema)
+    @blueprint.input(schemas.AstronomyShowPartialUpdateRequestSchema)
+    @blueprint.doc(
+        summary="Partially update astronomy show"
+    )
+    def patch(self, *args, **kwargs) -> models.AstronomyShowModel:
+        return super().patch(*args, **kwargs)
+
     @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
     @blueprint.doc(
         summary="Delete astronomy show"
