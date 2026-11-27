@@ -105,6 +105,9 @@ class AstronomyShowListAPIView(
         status_code=HTTPStatus.CREATED
     )
     @blueprint.input(schemas.AstronomyShowRequestSchema)
+    @blueprint.doc(
+        summary="Create astronomy show"
+    )
     def post(self, *args, **kwargs) -> models.AstronomyShowModel:
         return super().post(*args, **kwargs)
 
