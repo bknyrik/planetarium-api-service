@@ -103,6 +103,19 @@ class ShowSessionBaseSchema(Schema):
     show_time = fields.DateTime()
 
 
+class ShowSessionDetailResponseSchema(ShowSessionBaseSchema):
+    astronomy_show_id = fields.Nested(
+        nested=AstronomyShowExtendDetailResponseSchema,
+        data_key="astronomy_show",
+        attribute="astronomy_show"
+    )
+    planetarium_dome_id = fields.Nested(
+        nested=PlanetariumDomeDetailResponseSchema,
+        data_key="planetarium_dome",
+        attribute="planetarium_dome"
+    )
+
+
 class ShowSessionRequestSchema(Schema):
     astronomy_show_id = fields.Integer()
     planetarium_dome_id = fields.Integer()
