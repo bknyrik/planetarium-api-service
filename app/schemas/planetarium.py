@@ -120,3 +120,9 @@ class ShowSessionRequestSchema(Schema):
     astronomy_show_id = fields.Integer()
     planetarium_dome_id = fields.Integer()
     show_time = fields.DateTime()
+
+
+class ShowSessionPartialUpdateRequestSchema(ShowSessionRequestSchema):
+    astronomy_show_id = fields.Integer(required=False)
+    planetarium_dome_id = fields.Integer(required=False)
+    show_time = fields.DateTime(required=False)
