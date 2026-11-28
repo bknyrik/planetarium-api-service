@@ -96,7 +96,7 @@ class PlanetariumDomePartialUpdateRequestSchema(PlanetariumDomeRequestSchema):
     seats_in_row = fields.Integer(required=False)
 
 
-class ShowSessionListItemSchema(Schema):
+class ShowSessionBaseSchema(Schema):
     id = fields.Integer()
     astronomy_show_id = fields.Integer()
     planetarium_dome_id = fields.Integer()
