@@ -231,3 +231,33 @@ class ShowSessionListAPIView(
     @blueprint.doc(summary="Create show session")
     def post(self, *args, **kwargs) -> models.ShowSessionModel:
         return super().post(*args, **kwargs)
+
+
+@blueprint.route("/show_sessions/<int:pk>/")
+class ShowSessionDetailAPIView(
+    shortcuts.RetrieveUpdateDestroyAPIView[models.ShowSessionModel]
+):
+    model_type = models.ShowSessionModel
+    model_name = "Show session"
+
+    @blueprint.output(schemas.ShowSessionDetailResponseSchema)
+    @blueprint.doc(summary="Get show session")
+    def get(self, *args, **kwargs) -> models.ShowSessionModel:
+        return super().get(*args, **kwargs)
+
+    @blueprint.output(schemas.ShowSessionBaseSchema)
+    @blueprint.input(schemas.ShowSessionRequestSchema)
+    @blueprint.doc(summary="Completely update show session")
+    def put(self, *args, **kwargs) -> models.ShowSessionModel:
+        return super().put(*args, **kwargs)
+
+    @blueprint.output(schemas.ShowSessionBaseSchema)
+    @blueprint.input(schemas.ShowSessionPartialUpdateRequestSchema)
+    @blueprint.doc(summary="Partially update show session")
+    def patch(self, *args, **kwargs) -> models.ShowSessionModel:
+        return super().patch(*args, **kwargs)
+
+    @blueprint.output(EmptySchema, HTTPStatus.NO_CONTENT)
+    @blueprint.doc(summary="Delete show session")
+    def delete(self, *args, **kwargs) -> None:
+        return super().delete(*args, **kwargs)
