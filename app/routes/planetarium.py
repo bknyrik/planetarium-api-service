@@ -174,3 +174,41 @@ class PlanetariumDomeListAPIView(
     )
     def post(self, *args, **kwargs) -> models.PlanetariumDomeModel:
         return super().post(*args, **kwargs)
+
+
+@blueprint.route("/planetarium_domes/<int:pk>/")
+class PlanetariumDomeDetailAPIView(
+    shortcuts.RetrieveUpdateDestroyAPIView[models.PlanetariumDomeModel]
+):
+    model_type = models.PlanetariumDomeModel
+    model_name = "Planetarium Dome"
+
+    @blueprint.output(schemas.PlanetariumDomeDetailResponseSchema)
+    @blueprint.doc(
+        summary="Get planetarium dome"
+    )
+    def get(self, *args, **kwargs) -> models.PlanetariumDomeModel:
+        return super().get(*args, **kwargs)
+
+    @blueprint.output(schemas.PlanetariumDomeDetailResponseSchema)
+    @blueprint.input(schemas.PlanetariumDomeRequestSchema)
+    @blueprint.doc(
+        summary="Completely update planetarium dome"
+    )
+    def put(self, *args, **kwargs) -> models.PlanetariumDomeModel:
+        return super().get(*args, **kwargs)
+
+    @blueprint.output(schemas.PlanetariumDomeDetailResponseSchema)
+    @blueprint.input(schemas.PlanetariumDomePartialUpdateRequestSchema)
+    @blueprint.doc(
+        summary="Partially update planetarium dome"
+    )
+    def patch(self, *args, **kwargs) -> models.PlanetariumDomeModel:
+        return super().patch(*args, **kwargs)
+
+    @blueprint.output(EmptySchema, status_code=HTTPStatus.NO_CONTENT)
+    @blueprint.doc(
+        summary="Delete planetarium dome"
+    )
+    def delete(self, *args, **kwargs) -> None:
+        return super().delete(*args, **kwargs)
