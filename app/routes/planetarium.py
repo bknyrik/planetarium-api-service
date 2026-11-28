@@ -226,8 +226,8 @@ class ShowSessionListAPIView(
     def get(self, *args, **kwargs) -> list[models.ShowSessionModel]:
         return super().get(*args, **kwargs)
 
-    @blueprint.output(schemas.ShowSessionBaseSchema)
-    @blueprint.input(schemas.ShowSessionRequestSchema, HTTPStatus.CREATED)
+    @blueprint.output(schemas.ShowSessionBaseSchema, HTTPStatus.CREATED)
+    @blueprint.input(schemas.ShowSessionRequestSchema)
     @blueprint.doc(summary="Create show session")
     def post(self, *args, **kwargs) -> models.ShowSessionModel:
         return super().post(*args, **kwargs)
