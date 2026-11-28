@@ -212,3 +212,22 @@ class PlanetariumDomeDetailAPIView(
     )
     def delete(self, *args, **kwargs) -> None:
         return super().delete(*args, **kwargs)
+
+
+@blueprint.route("/show_sessions/")
+class ShowSessionListAPIView(
+    shortcuts.ListCreateAPIView[models.ShowSessionModel]
+):
+    model_type = models.ShowSessionModel
+    model_name = "Show session"
+
+    @blueprint.output(list[schemas.ShowSessionListItemSchema])
+    @blueprint.doc(summary="Get show session list")
+    def get(self, *args, **kwargs) -> list[models.ShowSessionModel]:
+        return super().get(*args, **kwargs)
+
+    @blueprint.output(schemas.ShowSessionListItemSchema)
+    @blueprint.input(schemas.ShowSessionRequestSchema)
+    @blueprint.doc(summary="Create show session")
+    def post(self, *args, **kwargs) -> models.ShowSessionModel:
+        return super().post(*args, **kwargs)
