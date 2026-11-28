@@ -147,7 +147,7 @@ class AstronomyShowDetailAPIView(
         summary="Delete astronomy show"
     )
     def delete(self, *args, **kwargs) -> None:
-        return super().patch(*args, **kwargs)
+        return super().delete(*args, **kwargs)
 
 
 @blueprint.route("/planetarium_domes/")
