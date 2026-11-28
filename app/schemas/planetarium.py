@@ -94,3 +94,10 @@ class PlanetariumDomePartialUpdateRequestSchema(PlanetariumDomeRequestSchema):
     name = fields.String(required=False)
     rows = fields.Integer(required=False)
     seats_in_row = fields.Integer(required=False)
+
+
+class ShowSessionListItemSchema(Schema):
+    id = fields.Integer()
+    astronomy_show_id = fields.Integer()
+    planetarium_dome_id = fields.Integer()
+    showtime = fields.DateTime()
