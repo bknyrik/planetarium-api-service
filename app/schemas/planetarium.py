@@ -100,10 +100,10 @@ class ShowSessionListItemSchema(Schema):
     id = fields.Integer()
     astronomy_show_id = fields.Integer()
     planetarium_dome_id = fields.Integer()
-    showtime = fields.DateTime()
+    show_time = fields.DateTime()
 
 
 class ShowSessionRequestSchema(Schema):
     astronomy_show_id = fields.Integer()
     planetarium_dome_id = fields.Integer()
-    showtime = fields.DateTime()
+    show_time = fields.DateTime()
